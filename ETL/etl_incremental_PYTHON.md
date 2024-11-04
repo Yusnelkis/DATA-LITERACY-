@@ -41,8 +41,14 @@ Guarda el siguiente código en un archivo llamado `etl_incremental.py`.
 from sqlalchemy import create_engine
 import pandas as pd
 
-# Configuración de la conexión a la base de datos
+# Configuración de la conexión a la base de datos. Usa los datos de tu host, user, password y database
 engine = create_engine("mysql+pymysql://root:2611@127.0.0.1:3306/emisiones_carbono")
+
+#Comprobar que la conexión a la BD es cortrecta
+# Usa la conexión para hacer la consulta
+query = "SELECT * FROM emisiones LIMIT 5"
+df = pd.read_sql(query, engine)
+print(df.head())
 
 # Definir la fecha de la última carga de datos (fecha de referencia para ETL incremental)
 ultima_actualizacion = '2023-01-01'  # Fecha de referencia
